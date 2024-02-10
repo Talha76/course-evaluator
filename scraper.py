@@ -2,9 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
-
-good = []
-bad = []
+from config import username, password, good, bad
 
 b = webdriver.Firefox()
 b.get("https://sis.iutoic-dhaka.edu/login/")
@@ -12,8 +10,6 @@ b.get("https://sis.iutoic-dhaka.edu/login/")
 wait = WebDriverWait(b, 10)
 
 # Logging into the website
-username = ""
-password = ""
 wait.until(ec.presence_of_element_located((By.NAME, "username")))
 b.find_element(By.NAME, "username").send_keys(username)
 wait.until(ec.presence_of_element_located((By.NAME, "password")))
@@ -61,8 +57,12 @@ while True:
         # Submitting the evaluation
         wait.until(ec.presence_of_element_located((By.CSS_SELECTOR, "button[class='btn btn-primary']")))
         b.find_element(By.CSS_SELECTOR, "button[class='btn btn-primary']").click()
+
+        # Evaluation end
+        print(f"Evaluation for {name} is complete")
     except Exception as e:
-        print(str(e))
+        print("If your evaluation is not complete and you're seeing this message, then check your user-name, "
+              "password, good and bad lists in config.py")
         break
 
 b.quit()
