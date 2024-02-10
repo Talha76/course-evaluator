@@ -4,7 +4,10 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from config import username, password, good, bad
 
-b = webdriver.Firefox()
+opts = webdriver.FirefoxOptions()
+opts.add_argument("--headless")
+
+b = webdriver.Firefox(options=opts)
 b.get("https://sis.iutoic-dhaka.edu/login/")
 
 wait = WebDriverWait(b, 10)
@@ -62,7 +65,8 @@ while True:
         print(f"Evaluation for {name} is complete")
     except Exception as e:
         print("If your evaluation is not complete and you're seeing this message, then check your user-name, "
-              "password, good and bad lists in config.py")
+              "password, good and bad lists in config.py\nFor watching where the programs gets stuck, comment out "
+              "line 8.")
         break
 
 b.quit()
